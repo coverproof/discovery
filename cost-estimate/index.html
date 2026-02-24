@@ -25,7 +25,7 @@
     
     
       
-        <title>CoverProof AI — Infrastructure Cost Estimate - CoverProof AI — Project Docs</title>
+        <title>CoverProof AI — Infrastructure Cost Estimate (WIP) - CoverProof AI — Project Docs</title>
       
     
     
@@ -81,7 +81,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#coverproof-ai-infrastructure-cost-estimate" class="md-skip">
+        <a href="#coverproof-ai-infrastructure-cost-estimate-wip" class="md-skip">
           Skip to content
         </a>
       
@@ -117,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              CoverProof AI — Infrastructure Cost Estimate
+              CoverProof AI — Infrastructure Cost Estimate (WIP)
             
           </span>
         </div>
@@ -652,13 +652,15 @@
                 
                   
 
-<h1 id="coverproof-ai-infrastructure-cost-estimate">CoverProof AI — Infrastructure Cost Estimate</h1>
-<p><strong>Dev Kickoff vs Production Ready</strong>
-<em>All prices in USD. GCP prices based on australia-southeast1 (Sydney) Tier 2 region.</em></p>
+<h1 id="coverproof-ai-infrastructure-cost-estimate-wip">CoverProof AI — Infrastructure Cost Estimate (WIP)</h1>
+<p><strong>Dev Kickoff vs Production Ready</strong></p>
+<blockquote>
+<p><strong>Currency note:</strong> All prices are in <strong>USD</strong>. For AUD equivalents, apply a conversion rate of <strong>1 USD = 1.50 AUD</strong>. Domain prices (Squarespace) are originally quoted in AUD and have been converted to USD at the same rate for consistency. GCP prices are based on australia-southeast1 (Sydney) Tier 2 region.</p>
+</blockquote>
 <hr />
 <h2 id="1-github-copilot-licences">1. GitHub Copilot Licences</h2>
-<p><strong>Recommendation: Pro plan — $10/user/month</strong>
-The Pro plan gives both engineers unlimited completions, unlimited agent mode, coding agent, PR reviews, and access to all major models (Claude, GPT, Gemini). Pro+ ($39/user/month) is overkill unless the team specifically needs Claude Opus 4 access at volume.</p>
+<p><strong>Recommendation: Pro+ plan — $39/user/month</strong>
+The Pro+ plan gives both engineers unlimited completions, unlimited agent mode, coding agent, PR reviews, and access to all major models including Claude Opus 4 at volume. The standard Pro plan ($10/user/month) is sufficient if Claude Opus 4 access is not required.</p>
 <table>
 <thead>
 <tr>
@@ -671,16 +673,16 @@ The Pro plan gives both engineers unlimited completions, unlimited agent mode, c
 <tbody>
 <tr>
 <td>2 × AI Engineers</td>
-<td>Pro @ $10/user</td>
-<td><strong>$20/mo</strong></td>
-<td><strong>~$130 total</strong></td>
+<td>Pro+ @ $39/user</td>
+<td><strong>$78/mo</strong></td>
+<td><strong>~$507 total</strong></td>
 </tr>
 </tbody>
 </table>
 <blockquote>
-<p>Note: Security Engineer is engaged for 4 weeks (Sprints 3–4) only. A single-month Pro licence for that period adds ~$10.</p>
+<p>Note: Security Engineer is engaged for 4 weeks (Sprints 3–4) only. A single-month Pro+ licence for that period adds ~$39.</p>
 </blockquote>
-<p><strong>Copilot Subtotal: ~$140 (full dev period)</strong></p>
+<p><strong>Copilot Subtotal: ~$546 (full dev period)</strong></p>
 <hr />
 <h2 id="2-domain-names-squarespace">2. Domain Names (Squarespace)</h2>
 <p>Two environments = two domains. Recommended naming:
@@ -690,8 +692,6 @@ The Pro plan gives both engineers unlimited completions, unlimited agent mode, c
 <p><strong>OR</strong> if the bank wants fully isolated non-prod branding:
 - <strong>Non-prod:</strong> <code>coverproof-dev.com</code> or <code>coverproof-staging.com</code></p>
 </blockquote>
-<p><strong>.ai domain pricing on Squarespace:</strong>
-Squarespace doesn't publish a flat .ai price on their search page — actual pricing requires a live search. Based on market data, .ai domains typically run <strong>$70–$90/year</strong> on Squarespace (premium ccTLD). <code>.com</code> domains run ~$20/year.</p>
 <table>
 <thead>
 <tr>
@@ -705,20 +705,20 @@ Squarespace doesn't publish a flat .ai price on their search page — actual pri
 <tr>
 <td><code>coverproof.ai</code></td>
 <td>.ai</td>
-<td>~$80/yr</td>
+<td>~$85/yr</td>
 <td>Prod — confirm availability via Squarespace search</td>
 </tr>
 <tr>
 <td><code>coverproof-dev.com</code></td>
 <td>.com</td>
-<td>~$20/yr</td>
+<td>~$13/yr</td>
 <td>Non-prod / staging (if separate domain preferred)</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Domain Subtotal: ~$100/year</strong> (or ~$160/year if you also register coverproof-dev.ai)</p>
+<p><strong>Domain Subtotal: ~$98/year</strong></p>
 <blockquote>
-<p>⚠️ You should search both names on Squarespace before committing — if <code>coverproof.ai</code> is taken as a premium domain, price could jump to $500+/yr. Have a backup name ready (e.g. <code>getcoverproof.ai</code>, <code>coverproofapp.ai</code>).</p>
+<p>⚠️ We should search both names on Squarespace before committing — if <code>coverproof.ai</code> is taken as a premium domain, price could jump to $333+/yr. Have a backup name ready (e.g. <code>getcoverproof.ai</code>, <code>coverproofapp.ai</code>).</p>
 </blockquote>
 <hr />
 <h2 id="3-gcp-projects-prod-non-prod">3. GCP Projects (Prod &amp; Non-Prod)</h2>
@@ -808,7 +808,7 @@ Squarespace doesn't publish a flat .ai price on their search page — actual pri
 </tr>
 <tr>
 <td><strong>Cloud Run — Frontend</strong> (React, served via nginx)</td>
-<td>Lower request volume (static-heavy). ~$5–10/mo</td>
+<td>Lower request volume (static-heavy).</td>
 <td>~$5–10/mo</td>
 </tr>
 <tr>
@@ -860,7 +860,7 @@ Squarespace doesn't publish a flat .ai price on their search page — actual pri
 </table>
 <p><strong>Production GCP Estimate: ~$43–89/month at launch</strong></p>
 <blockquote>
-<p>This will scale with portfolio size. At 10,000+ collaterals and 2,000+ uploads/month, expect $150–250/month. GCP costs are elastic — you only pay for what you use.</p>
+<p>This will scale with portfolio size. At 10,000+ collaterals and 2,000+ uploads/month, expect $150–250/month.</p>
 </blockquote>
 <hr />
 <h2 id="4-third-party-services-prod">4. Third-Party Services (Prod)</h2>
@@ -911,16 +911,16 @@ Squarespace doesn't publish a flat .ai price on their search page — actual pri
 </thead>
 <tbody>
 <tr>
-<td>GitHub Copilot Pro — 2 engineers (first month)</td>
-<td>$20</td>
+<td>GitHub Copilot Pro+ — 2 engineers (first month)</td>
+<td>$78</td>
 </tr>
 <tr>
 <td>Domain registration — <code>coverproof.ai</code></td>
-<td>~$80 (annual, paid upfront)</td>
+<td>~$85 (annual, paid upfront)</td>
 </tr>
 <tr>
 <td>Domain registration — <code>coverproof-dev.com</code></td>
-<td>~$20 (annual, paid upfront)</td>
+<td>~$13 (annual, paid upfront)</td>
 </tr>
 <tr>
 <td>GCP Non-Prod project (first month)</td>
@@ -932,7 +932,7 @@ Squarespace doesn't publish a flat .ai price on their search page — actual pri
 </tr>
 </tbody>
 </table>
-<p><strong>Dev Kickoff Total: ~$145–160 (first month)</strong></p>
+<p><strong>Dev Kickoff Total: ~$201–216 (first month)</strong></p>
 <hr />
 <h3 id="ongoing-dev-period-per-month-sprints-111">Ongoing Dev Period (per month, Sprints 1–11)</h3>
 <table>
@@ -944,8 +944,8 @@ Squarespace doesn't publish a flat .ai price on their search page — actual pri
 </thead>
 <tbody>
 <tr>
-<td>GitHub Copilot Pro — 2 engineers</td>
-<td>$20</td>
+<td>GitHub Copilot Pro+ — 2 engineers</td>
+<td>$78</td>
 </tr>
 <tr>
 <td>GCP Non-Prod</td>
@@ -961,8 +961,8 @@ Squarespace doesn't publish a flat .ai price on their search page — actual pri
 </tr>
 </tbody>
 </table>
-<p><strong>Monthly During Development: ~$53–73/month</strong>
-<strong>Total Across Full 26-Week Dev Period (~6.5 months): ~$345–475</strong></p>
+<p><strong>Monthly During Development: ~$111–131/month</strong>
+<strong>Total Across Full 26-Week Dev Period (~6.5 months): ~$722–852</strong></p>
 <hr />
 <h3 id="production-ready-monthly-recurring-post-go-live">Production Ready (monthly recurring, post-go-live)</h3>
 <table>
@@ -974,8 +974,8 @@ Squarespace doesn't publish a flat .ai price on their search page — actual pri
 </thead>
 <tbody>
 <tr>
-<td>GitHub Copilot Pro — 2 engineers (ongoing)</td>
-<td>$20</td>
+<td>GitHub Copilot Pro+ — 2 engineers (ongoing)</td>
+<td>$78</td>
 </tr>
 <tr>
 <td>GCP Prod</td>
@@ -1003,7 +1003,7 @@ Squarespace doesn't publish a flat .ai price on their search page — actual pri
 </tr>
 </tbody>
 </table>
-<p><strong>Monthly Production Recurring: ~$110–169/month</strong></p>
+<p><strong>Monthly Production Recurring: ~$168–227/month</strong></p>
 <blockquote>
 <p>Twilio SMS is excluded from recurring — budget ~$400 per active campaign cycle separately.</p>
 </blockquote>
@@ -1026,12 +1026,12 @@ Squarespace doesn't publish a flat .ai price on their search page — actual pri
 <tr>
 <td>GitHub Copilot 30-day free trial</td>
 <td><strong>$0</strong></td>
-<td>Both engineers can trial Pro before committing</td>
+<td>Both engineers can trial Pro+ before committing</td>
 </tr>
 <tr>
 <td>Squarespace domain first-year discount</td>
 <td>Check at search</td>
-<td>.com domains sometimes offered at $5 for year 1 on promotions</td>
+<td>.com domains sometimes offered at discounted rates for year 1 on promotions</td>
 </tr>
 </tbody>
 </table>
@@ -1047,19 +1047,19 @@ Squarespace doesn't publish a flat .ai price on their search page — actual pri
 <tbody>
 <tr>
 <td>Dev Kickoff (Month 1)</td>
-<td><strong>~$145–160</strong></td>
+<td><strong>~$201–216</strong></td>
 </tr>
 <tr>
 <td>Ongoing Dev (Months 2–6)</td>
-<td><strong>~$53–73/mo</strong></td>
+<td><strong>~$111–131/mo</strong></td>
 </tr>
 <tr>
 <td>Full Dev Period Total (6.5 months)</td>
-<td><strong>~$345–475</strong></td>
+<td><strong>~$722–852</strong></td>
 </tr>
 <tr>
 <td>Production Recurring (post-launch)</td>
-<td><strong>~$110–169/mo</strong></td>
+<td><strong>~$168–227/mo</strong></td>
 </tr>
 </tbody>
 </table>
