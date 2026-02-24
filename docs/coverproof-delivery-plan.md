@@ -1,11 +1,10 @@
-# CoverProof AI (Phase 2) — Delivery Plan
+# CoverProof AI (Phase 2) — Delivery Plan (WIP)
 **Stack:** Google Cloud Platform · Cloud Run · React · Python · Firestore · GCS
-**Team:** 2 AI Engineers (full-stack across frontend, backend, AI) · 1 Security Engineer (Sprints 3–4 only)
+**Team:** 2 AI Engineers (full-stack across frontend, backend, AI) · 1 Security Engineer (Sprints 3–4 and Sprint 10)
 
 ---
 
 ## Sprint Plan
-
 
 ### Sprint 1–2 (Weeks 1–4) — Foundation & Infrastructure
 **Engineers:** 2 AI Engineers
@@ -27,33 +26,28 @@
 
 ---
 
-### Sprint 3–4 (Weeks 5–8) — Security (Dedicated)
+### Sprint 3–4 (Weeks 5–8) — Security Part 1 (Transport, Encryption & Access Control)
 **Engineers:** 2 AI Engineers + 1 Security Engineer
 **Capacity:** 6 engineer-weeks (Security Engineer joins full-time for both sprints)
 
-> The Security Engineer leads and owns all security deliverables. AI Engineers implement under direction and integrate security patterns into existing code.
+> The Security Engineer leads and owns all security deliverables. AI Engineers implement under direction and integrate security patterns into existing code. Pen test and compliance sign-off are deferred to Sprint 10 once the frontend is complete.
 
 **Sprint 3 — Transport, Auth & Encryption (Security Engineer leads):**
 - HTTPS / TLS 1.3 enforced across all Cloud Run services
 - JWT token lifecycle: rotation, revocation, one-time-use flag (Firestore TTL)
 - Encrypted URL generation service (JWT-signed, configurable expiry, single-use enforcement)
-- Cloud Armor WAF rules on Cloud Run ingress
+- Cloud Armor WAF (Web Application Firewall) rules on Cloud Run ingress
 - VPC Service Controls — GCP service perimeter
 - Secret Manager: all credentials moved out of codebase
 - GCS CMEK (Customer-Managed Encryption Keys) on all buckets
 
-**Sprint 4 — Access Control, Compliance & Pen Test (Security Engineer leads):**
+**Sprint 4 — Access Control (Security Engineer leads):**
 - Firestore security rules — role-based read/write per collection
 - RBAC implementation: Bank Admin / Risk Team (read-only) / Super Admin
 - Consent record storage — immutable, timestamped write-once pattern
-- Data retention scaffold: Cloud Scheduler + Cloud Function (configurable TTL purge)
-- Right-to-erasure workflow (admin-triggered)
-- Privacy Policy and ToS pages (static, borrower portal)
-- Internal pen test executed by Security Engineer
-- GDPR / Australian Privacy Act compliance checklist signed off
 
-**Milestone ✅ — "Security Hardened"**
-> Pen test passed. RBAC confirmed. Encryption verified at rest and in transit. Compliance checklist signed off. Security Engineer offboards.
+**Milestone ✅ — "Security Part 1 Complete"**
+> Encryption verified at rest and in transit. RBAC confirmed. Security Engineer offboards until Sprint 10.
 
 ---
 
@@ -71,7 +65,6 @@
 
 **Eng 2 — Frontend:**
 - Borrower portal landing page: code entry screen → unlock → success state
-- Static consent modal (permissions + privacy notice)
 
 **Explicitly out of scope for POC:**
 - Campaign scheduling, kill switch, Pub/Sub queuing
@@ -105,13 +98,11 @@
 **Engineers:** 2 AI Engineers
 **Capacity:** 4 engineer-weeks per sprint (8 total)
 
-> This is the most technically complex phase. Engineers work in parallel on parsing and test logic.
-
 **Sprint 7 — Document Parsing & Tests A + C:**
 
-- **Eng 1:** Google Document AI integration (PDF OCR), structured JSON extractor (address, names, interested parties, perils, sum insured, policy dates), GPT-4o fallback for unstructured layouts. Parsed JSON stored in Firestore mapped to `Collateral_ID`.
-- **Eng 2:** 
-  - **Test A — Accuracy:** Fuzzy address match (RapidFuzz), name match (token-set ratio), interested party keyword detection. Each sub-test: Pass / Fail / Needs Review + confidence score.
+- **Eng 1:** Data extraction using Claude, structured JSON extractor using Pydantic approach, LLM Judge using Gemini. Parsed JSON stored in Firestore mapped to `Collateral_ID`.
+- **Eng 2:**
+  - **Test A — Accuracy:** Fuzzy address match (RapidFuzz), name match, interested party keyword detection. Each sub-test: Pass / Fail / Needs Review + confidence score.
   - **Test C — Adequacy:** Coverage ratio `Sum_Insured / MAX(Loan_Balance, Last_Valuation, Rebuild_Cost)`, configurable target, rebuild cost proxy (CoreLogic/Cordell or postcode model), flag ratio < 1.0.
 
 **Sprint 8 — AI Policy Library & Test B + Status Engine:**
@@ -131,11 +122,11 @@
 **Capacity:** 4 engineer-weeks
 
 **Eng 1 — Dashboard core views:**
-- Portfolio Overview: donut/bar chart (% Verified / Pending / Non-Compliant / Inactive), weekly trend
+- Portfolio Overview: bar chart (% Verified / Pending / Non-Compliant / Inactive), weekly trend
 - Gap Alert Panel ("Red Zone"): filterable/sortable table — Collateral_ID, Address, Failure Reason, Coverage Ratio, Last Action Date
 
 **Eng 2 — Export, audit & admin:**
-- Export Module: climate disclosure table (Insured vs. Uninsured by hazard type), CSV + PDF export (APRA APS 220 formatted)
+- Export Module: CSV + PDF export (APRA APS 220 formatted)
 - Audit Trail View: per-borrower timeline, filterable by date / outcome / Collateral_ID
 - Admin Controls Panel: risk appetite config, adequacy target toggle, campaign controller UI, cohort upload history
 - Backend: paginated Firestore query APIs, PDF report generation (WeasyPrint or Puppeteer sidecar)
@@ -145,7 +136,29 @@
 
 ---
 
-### Sprint 10 (Weeks 19–20) — Test Plan & Test Execution
+### Sprint 10 (Weeks 19–20) — Security Part 2 (Pen Test & Compliance)
+**Engineers:** 2 AI Engineers + 1 Security Engineer
+**Capacity:** 6 engineer-weeks (Security Engineer rejoins full-time)
+
+> Pen test and compliance sign-off are performed now that the full application — including frontend — is complete. This ensures all attack surfaces are in scope for testing.
+
+**Security Engineer leads:**
+- Data retention scaffold: Cloud Scheduler + Cloud Function (configurable TTL purge)
+- Privacy Policy and ToS pages (static, borrower portal)
+- Internal pen test executed by Security Engineer across full application stack (frontend + backend + borrower portal)
+- GDPR / Australian Privacy Act compliance checklist signed off
+- Others — to be confirmed by Security Engineer
+
+**AI Engineers — support & remediation:**
+- Implement fixes for any vulnerabilities identified during pen test
+- Integrate data retention and privacy pages into existing application
+
+**Milestone ✅ — "Security Hardened"**
+> Pen test passed. Full application stack tested. Compliance checklist signed off. Security Engineer offboards.
+
+---
+
+### Sprint 11 (Weeks 21–22) — Test Plan & Test Execution
 **Engineers:** 2 AI Engineers
 **Capacity:** 4 engineer-weeks
 
@@ -184,16 +197,15 @@
 
 ---
 
-### Sprint 11 (Weeks 21–22) — Data Ingestion *(Post-Contract Gate)*
+### Sprint 12 (Weeks 23–24) — Data Ingestion *(Post-Contract Gate)*
 **Engineers:** 2 AI Engineers
 **Capacity:** 4 engineer-weeks
 
-> ⚠️ **This sprint does not begin until the bank contract is signed.** If the contract is delayed, Sprint 12 (UAT) shifts accordingly. All prior sprints are fully unblocked — the system runs on synthetic data until this point.
+> ⚠️ **This sprint does not begin until the bank contract is signed.** If the contract is delayed, Sprint 13 (UAT) shifts accordingly. All prior sprints are fully unblocked — the system runs on synthetic data until this point.
 
 **Eng 1 — Backend ingester:**
 - CSV/XLSX ingester with full schema validation against agreed bank fields
-- Pandas/Polars mapping with rejection report (bad rows returned to bank)
-- SFTP receiver if required (Cloud Storage SFTP adapter)
+- Pandas mapping with rejection report (bad rows returned to bank)
 - Delta reconciliation engine wired to live Firestore collections
 
 **Eng 2 — Admin UI + pipeline wiring:**
@@ -207,17 +219,17 @@
 
 ---
 
-### Sprint 12 (Weeks 23–26) — UAT, Hardening & Go-Live
+### Sprint 13 (Weeks 25–28) — UAT, Hardening & Go-Live
 **Engineers:** 2 AI Engineers
 **Capacity:** 8 engineer-weeks (extended to 4 weeks to absorb UAT defect fixing)
 
-**Weeks 23–24 — UAT:**
+**Weeks 25–26 — UAT:**
 - Bank UAT with real portfolio slice (min. 100 collaterals)
 - Borrower UAT pilot (5–10 real borrowers)
 - Load test: 500 concurrent uploads (k6 or Locust)
 - Defect triage and resolution
 
-**Weeks 25–26 — Hardening & Go-Live:**
+**Weeks 27–28 — Hardening & Go-Live:**
 - Blue/Green production deployment via Cloud Run traffic splitting
 - Cloud Monitoring dashboards: uptime, error rates, latency, Pub/Sub queue depth
 - Alerting: Cloud Alerting / PagerDuty for critical failures
@@ -233,16 +245,17 @@
 | Sprint | Weeks | Engineers | Focus | Milestone |
 |--------|-------|-----------|-------|-----------|
 | 1–2 | 1–4 | 2 AI | Foundation & Infrastructure | Infrastructure Live |
-| 3–4 | 5–8 | 2 AI + 1 Security | Security (dedicated) | Security Hardened |
+| 3–4 | 5–8 | 2 AI + 1 Security | Security Part 1 — Transport, Encryption & Access Control | Security Part 1 Complete |
 | 5 | 9–10 | 2 AI | Comms POC | POC Sign-Off |
 | 6 | 11–12 | 2 AI | Comms Full Build | Comms Engine Live |
 | 7–8 | 13–16 | 2 AI | AI Verification Engine | Verification Engine Live |
 | 9 | 17–18 | 2 AI | Frontend Build | Frontend Complete |
-| 10 | 19–20 | 2 AI | Test Plan & Execution | Tests Passed |
-| 11 | 21–22 | 2 AI | Data Ingestion *(post-contract)* | Ingestion Live |
-| 12 | 23–26 | 2 AI | UAT, Hardening & Go-Live | Production Go-Live |
+| 10 | 19–20 | 2 AI + 1 Security | Security Part 2 — Pen Test & Compliance | Security Hardened |
+| 11 | 21–22 | 2 AI | Test Plan & Execution | Tests Passed |
+| 12 | 23–24 | 2 AI | Data Ingestion *(post-contract)* | Ingestion Live |
+| 13 | 25–28 | 2 AI | UAT, Hardening & Go-Live | Production Go-Live |
 
-**Total: ~26 weeks** (assuming contract signed by Week 20 at latest)
+**Total: ~28 weeks** (assuming contract signed by Week 22 at latest)
 
 ---
 
@@ -251,22 +264,23 @@
 | Sprint | Eng-Weeks Available | Load Assessment |
 |--------|-------------------|-----------------|
 | 1–2 | 4 | 🟢 Comfortable |
-| 3–4 | 6 (+ Security Eng) | 🟢 Comfortable with Security Eng carrying the load |
+| 3–4 | 6 (+ Security Eng) | 🟢 Comfortable — Security Eng carrying the load |
 | 5 | 4 | 🟡 Tight — scope deliberately limited to POC |
 | 6 | 4 | 🟡 Tight — builds on POC foundation |
-| 7–8 | 8 | 🔴 High risk — most complex sprint. Buffer for OCR/AI edge cases |
+| 7–8 | 8 | 🔴 High risk — most complex sprint. Buffer for AI edge cases |
 | 9 | 4 | 🟡 Tight — parallel dashboard + APIs |
-| 10 | 4 | 🟢 Comfortable — test writing, not net-new build |
-| 11 | 4 | 🟢 Comfortable — schema agreed in advance |
-| 12 | 8 | 🟡 UAT defect volume is the unknown |
+| 10 | 6 (+ Security Eng) | 🟢 Comfortable — Security Eng leading pen test |
+| 11 | 4 | 🟢 Comfortable — test writing, not net-new build |
+| 12 | 4 | 🟢 Comfortable — schema agreed in advance |
+| 13 | 8 | 🟡 UAT defect volume is the unknown |
 
 ---
 
 ## Open Questions (Pre-Sprint 1)
 
-1. **Security Engineer:** Needs to be confirmed before Sprint 3.
-2. **Draft schema agreement:** Can the bank provide a draft field list pre-contract so Sprint 11 prep can happen in parallel?
+1. **Security Engineer:** Needs to be confirmed before Sprint 3. Note: Security Engineer is engaged twice — Sprints 3–4 and Sprint 10.
+2. **Draft schema agreement:** Can the bank provide a draft field list pre-contract so Sprint 12 prep can happen in parallel?
 3. **SMS compliance:** Does existing bank customer consent cover SMS from `verification@yourbank.coverproof.ai`?
 4. **PDS scope:** Which insurers are in scope for the AI Policy Library?
 5. **Data retention:** Full retention for APRA audit, or PII scrub post-acknowledgement?
-6. **Data Processing:** GCP doesnt have any Gemini models with Australia Southeast endpoints, is that going to be a problem for banks?
+6. **Data Processing:** GCP doesn't have any Gemini models with Australia Southeast endpoints — is that going to be a problem for the bank?
