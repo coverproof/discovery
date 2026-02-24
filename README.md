@@ -13,7 +13,7 @@ pip install zensical
 
 ## Step 2: Configure Zensical
 
-Create a `zensical.yml` file in your project root:
+Create a `mkdocs.yml` file in your project root:
 
 ```yaml
 site_name: Your Site Name
