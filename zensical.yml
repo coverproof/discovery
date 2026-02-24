@@ -1,0 +1,21 @@
+site_name: CoverProof AI — Project Docs
+site_description: Delivery plan and infrastructure cost estimate for CoverProof AI Phase 2
+site_author: CoverProof AI Team
+docs_dir: docs
+output_dir: site
+
+theme:
+  variant: "classic"
+  palette:
+    primary: indigo
+    accent: indigo
+
+nav:
+  - Home: index.md
+  - Delivery Plan: coverproof-delivery-plan.md
+  - Cost Estimate: cost-estimate.md
+
+markdown_extensions:
+  - tables
+  - toc
+  - admonition
